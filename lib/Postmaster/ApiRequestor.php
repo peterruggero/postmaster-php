@@ -16,13 +16,6 @@ class Postmaster_ApiRequestor
       return $value;
   }
 
-  public static function post($url, $params) {
-    if(empty($params)) {
-      $params = array();
-    }
-    return $return;
-  }
-
   public function request($meth, $url, $params=null)
   {
     $absUrl = self::apiUrl($url);
@@ -40,7 +33,7 @@ class Postmaster_ApiRequestor
     );
     $headers = array(
         'X-Postmaster-Client-User-Agent: ' . json_encode($ua),
-	'User-Agent: Postmaster/v1 PhpBindings/' . Postmaster::VERSION
+        'User-Agent: Postmaster/v1 PhpBindings/' . Postmaster::VERSION
     );
 
     list($rbody, $rcode) = $this->_curlRequest($meth, $absUrl, $headers, $params, $apiKey);
@@ -61,7 +54,7 @@ class Postmaster_ApiRequestor
       } else {
         $msg = "Unknown API error";
       }
-      throw new Postmaster_Error($msg, $rcode);
+      throw new Postmaster_Error($msg, $rcode, $resp);
     }
     return $resp;
   }
@@ -73,8 +66,8 @@ class Postmaster_ApiRequestor
     if ($meth == 'get') {
       $opts[CURLOPT_HTTPGET] = 1;
       if (count($params) > 0) {
-	$encoded = http_build_query($params);
-	$absUrl = "$absUrl?$encoded";
+        $encoded = http_build_query($params);
+        $absUrl = "$absUrl?$encoded";
       }
     } else if ($meth == 'post') {
       $opts[CURLOPT_POST] = 1;

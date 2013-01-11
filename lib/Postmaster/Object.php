@@ -100,7 +100,7 @@ class Postmaster_Object implements ArrayAccess
           array_push($result, self::scopedConstructObject($class, $i));
         $this->_values[$k] = $result;
       } else {
-	$this->_values[$k] = $v;
+        $this->_values[$k] = $v;
       }
     }
   }
@@ -119,13 +119,13 @@ class Postmaster_Object implements ArrayAccess
   }
 
   public function __toArray()
-  {
-
+  {   
     $results = array();
-    foreach ($values as $k => $v) {
+    foreach ($this->_values as $k => $v) {
+      $fullKey = get_class($this) . '.' . $k;
       if ($v instanceof Postmaster_Object) {
-        $results[$k] = $v->__toArray(true);
-      } else if (is_array($v) && array_key_exists($k, $this->obj_list_keys)) {
+        $results[$k] = $v->__toArray();
+      } else if (is_array($v) && array_key_exists($fullKey, self::$obj_list_keys)) {
         $result = array();
         foreach ($v as $i)
           array_push($result, $i->__toArray());
