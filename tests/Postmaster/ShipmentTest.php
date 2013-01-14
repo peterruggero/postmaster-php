@@ -42,6 +42,13 @@ class ShipmentTestCase extends PostmasterBaseTestCase
         $this->assertTrue($result->to instanceof Postmaster_Address);
         $this->assertTrue($result->from_ instanceof Postmaster_Address);
     }
+
+    function testInvalidRefreshe()
+    {
+        $this->setExpectedException('Postmaster_Error');
+        $shipment = new Postmaster_Shipment();
+        $shipment->refresh();
+    }
     
     function testCreateRetrive()
     {

@@ -46,7 +46,7 @@ class Postmaster_Object implements ArrayAccess
       return $this->_values[$k];
     } else {
       $class = get_class($this);
-      error_log("Postmaster Notice: Undefined property of $class instance: $k");
+      //error_log("Postmaster Notice: Undefined property of $class instance: $k");
       return null;
     }
   }
