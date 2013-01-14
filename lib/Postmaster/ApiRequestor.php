@@ -1,5 +1,8 @@
 <?php
 
+/*
+ * Communication to API over HTTP.
+ */
 class Postmaster_ApiRequestor
 {
   public static function apiUrl($url='')
@@ -51,10 +54,19 @@ class Postmaster_ApiRequestor
     if ($rcode < 200 || $rcode >=300) {
       if (is_array($resp) && array_key_exists('msg', $resp)) {
         $msg = $resp['msg'];
+      } else if (is_array($resp) && array_key_exists('message', $resp)) {
+        $msg = $resp['message'];
       } else {
         $msg = "Unknown API error";
       }
-      throw new Postmaster_Error($msg, $rcode, $resp);
+      if ($rcode == 400) {
+        throw new InvalidData_Error($msg, $rbody, $rcode, $resp);
+      } else if ($rcode == 401) {
+        throw new Authentication_Error($msg, $rbody, $rcode, $resp);
+      } else if ($rcode == 403) {
+        throw new Permission_Error($msg, $rbody, $rcode, $resp);
+      } 
+      throw new API_Error($msg, $rbody, $rcode, $resp);
     }
     return $resp;
   }
@@ -118,6 +130,6 @@ class Postmaster_ApiRequestor
     }
 
     $msg .= "\n\n(Network error [errno $errno]: $message)";
-    throw new Postmaster_Error($msg);
+    throw new Network_Error($msg);
   }
 }

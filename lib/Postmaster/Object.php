@@ -1,7 +1,12 @@
 <?php
 
+/*
+ * Base object for Postmaster.  Allows slightly easlier access to data and
+ * some REST-like opertations.
+ */
 class Postmaster_Object implements ArrayAccess
 {
+  // internal storage for values
   protected $_values;
 
   // which keys should be converted to Postmaster_Objects
@@ -78,33 +83,44 @@ class Postmaster_Object implements ArrayAccess
     return $obj;
   }
 
+  /*
+   * Store given data inside object, convert it if necessary.
+   */
   public function setValues($values)
   {
     $this->_values = array();
 
     foreach ($values as $k => $v) {
       $fullKey = get_class($this) . '.' . $k;
+      // check class name and key - convert value if necessary
       if (array_key_exists($fullKey, self::$obj_keys)) {
         $class = self::$obj_keys[$fullKey];
         if (!strncmp($class, 'Postmaster', 10)) {
+            // convert to Postmaster_Object
             $this->_values[$k] = self::scopedConstructObject($class, $v);
         } else if ($class == 'DateTime') {
+            //convert to DateTime object
             $result = new DateTime();
             $result->setTimestamp($v);
             $this->_values[$k] = $result;
         }
       } else if (array_key_exists($fullKey, self::$obj_list_keys)) {
+        // convert to list of Postmaster_Object's
         $class = self::$obj_list_keys[$fullKey];
         $result = array();
         foreach ($v as $i)
           array_push($result, self::scopedConstructObject($class, $i));
         $this->_values[$k] = $result;
       } else {
+        // just store it
         $this->_values[$k] = $v;
       }
     }
   }
 
+  /*
+   * Convert Object to JSON.
+   */
   public function __toJSON()
   {
     if (defined('JSON_PRETTY_PRINT'))
@@ -113,19 +129,27 @@ class Postmaster_Object implements ArrayAccess
       return json_encode($this->__toArray());
   }
 
+  /*
+   * Convert Object to string. String will contain JSON.
+   */
   public function __toString()
   {
     return $this->__toJSON();
   }
-
+  
+  /*
+   * Convert Object to array. Converts to arrays also inside Postmaster_Object.
+   */ 
   public function __toArray()
   {   
     $results = array();
     foreach ($this->_values as $k => $v) {
       $fullKey = get_class($this) . '.' . $k;
       if ($v instanceof Postmaster_Object) {
+        // convert to array
         $results[$k] = $v->__toArray();
       } else if (is_array($v) && array_key_exists($fullKey, self::$obj_list_keys)) {
+        // convert to array of arrays
         $result = array();
         foreach ($v as $i)
           array_push($result, $i->__toArray());

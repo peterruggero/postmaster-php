@@ -1,7 +1,13 @@
 <?php
 
+/*
+ * Base class for Postmaster API Objects.
+ */
 abstract class Postmaster_ApiResource extends Postmaster_Object
 {
+  /*
+   * Get path that should be used to communicate with API.
+   */
   public function instanceUrl($base, $action=null)
   {
     $id = $this['id'];

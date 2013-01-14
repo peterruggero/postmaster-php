@@ -8,6 +8,9 @@ class Postmaster_AddressValidation extends Postmaster_ApiResource
 {
   private static $urlBase = '/v1/validate';
 
+  /*
+   * Validate that an address is correct.
+   */ 
   public static function validate($params=null)
   {
     $class = get_class();
@@ -15,7 +18,6 @@ class Postmaster_AddressValidation extends Postmaster_ApiResource
     $requestor = new Postmaster_ApiRequestor();
     $response = $requestor->request('post', self::$urlBase, $params);
     return Postmaster_Object::scopedConstructObject($class, $response);
-
   }
 }
 

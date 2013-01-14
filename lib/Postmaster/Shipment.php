@@ -4,6 +4,24 @@ class Postmaster_Shipment extends Postmaster_ApiResource
 {
   private static $urlBase = '/v1/shipments';
 
+  /*
+   * Create a new shipment.
+   * Arguments:
+   *  - to (required) - an array representing the ship-to address: 
+   *    - company
+   *    - contact
+   *    - street - a list of strings defining the street address
+   *    - city
+   *    - state
+   *    - zip
+   *  - package (required) - an array (or list of arrays) representing 
+   *    the package:
+   *    - value
+   *    - weight
+   *    - dimentions
+   *  - from (optional) - an array representing the ship-from address.  
+   *    Will use default for account if not provided.
+   */
   public static function create($params=null)
   {
     $class = get_class();
@@ -22,6 +40,9 @@ class Postmaster_Shipment extends Postmaster_ApiResource
     return $this;
   }
 
+  /*
+   * Retrieve a package by ID.
+   */
   public static function retrieve($id)
   {
     $instance = new Postmaster_Shipment($id);
@@ -29,6 +50,9 @@ class Postmaster_Shipment extends Postmaster_ApiResource
     return $instance;
   }
 
+  /*
+   * Void a shipment (from an object).
+   */
   public function void()
   {
     $requestor = new Postmaster_ApiRequestor();
@@ -38,6 +62,9 @@ class Postmaster_Shipment extends Postmaster_ApiResource
     return $response == 'OK';
   }
 
+  /*
+   * Track a shipment (from an object).
+   */
   public function track()
   {
     $requestor = new Postmaster_ApiRequestor();
