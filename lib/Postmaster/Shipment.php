@@ -59,7 +59,7 @@ class Postmaster_Shipment extends Postmaster_ApiResource
     $url = $this->instanceUrl(self::$urlBase, 'void');
     $response = $requestor->request('post', $url);
     $this->setValues(array()); //clear
-    return $response == 'OK';
+    return $response['message'] == 'OK';
   }
 
   /*
@@ -69,7 +69,7 @@ class Postmaster_Shipment extends Postmaster_ApiResource
   {
     $requestor = new Postmaster_ApiRequestor();
     $url = $this->instanceUrl(self::$urlBase, 'track');
-    $response = $requestor->request('post', $url);
+    $response = $requestor->request('get', $url);
 
     $results = array();
     foreach($response['results'] as $data) {

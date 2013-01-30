@@ -54,15 +54,46 @@ class ErrorTestCase extends PostmasterBaseTestCase
         $this->fail('An expected exception has not been raised.');
     }
 
-    function testAuthenticationError()
+    function testInvalidAuthHeaderError()
     {
         Postmaster::setApiKey("incorrect-api-key");
         try {
             $result = Postmaster_AddressValidation::validate(array());
         }
-        catch (Authentication_Error $expected) {
+        catch (InvalidData_Error $expected) {
             $msg = $expected->getMessage();
             $this->assertStringStartsWith('Invalid authorization header', $msg);
+            return;
+        }
+ 
+        $this->fail('An expected exception has not been raised.');
+    }
+
+    function testInvalidAuthError()
+    {
+        $apiKey = Postmaster::getApiKey();
+        Postmaster::setApiKey(substr($apiKey, 0, -1));
+        try {
+            $result = Postmaster_AddressValidation::validate(array());
+        }
+        catch (Permission_Error $expected) {
+            $msg = $expected->getMessage();
+            $this->assertStringStartsWith('Invalid authorization', $msg);
+            return;
+        }
+ 
+        $this->fail('An expected exception has not been raised.');
+    }
+    
+    function testNoAuthError()
+    {
+        Postmaster::setApiKey('');
+        try {
+            $result = Postmaster_AddressValidation::validate(array());
+        }
+        catch (Authentication_Error $expected) {
+            $msg = $expected->getMessage();
+            $this->assertStringStartsWith('You must authorize', $msg);
             return;
         }
  

@@ -1,0 +1,27 @@
+{
+  "name": "postmaster/postmaster-php",
+  "description": "Library for postmaster.io service",
+  "keywords": [
+    "postmaster",
+    "shipping processing",
+    "address validation",
+    "api"
+  ],
+  "version": "1.0.0",
+  "homepage": "https://postmaster.io/",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Postmaster",
+      "email": "support@postmaster.io",
+      "homepage": "https://postmaster.io"
+    }
+  ],
+  "require": {
+    "php": ">=5.2",
+    "ext-curl": "*"
+  },
+  "autoload": {
+    "classmap": ["lib/Postmaster/"]
+  }
+}
