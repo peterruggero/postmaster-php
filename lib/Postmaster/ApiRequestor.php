@@ -52,9 +52,7 @@ class Postmaster_ApiRequestor
     }
 
     if ($rcode < 200 || $rcode >=300) {
-      if (is_array($resp) && array_key_exists('msg', $resp)) {
-        $msg = $resp['msg'];
-      } else if (is_array($resp) && array_key_exists('message', $resp)) {
+      if (is_array($resp) && array_key_exists('message', $resp)) {
         $msg = $resp['message'];
       } else {
         $msg = "Unknown API error";
@@ -96,7 +94,8 @@ class Postmaster_ApiRequestor
     $opts[CURLOPT_RETURNTRANSFER] = true;
     $opts[CURLOPT_HTTPHEADER] = $headers;
 
-    $opts[CURLOPT_USERPWD] = $apiKey . ":";
+    if ($apiKey)
+      $opts[CURLOPT_USERPWD] = $apiKey . ":";
 
     curl_setopt_array($curl, $opts);
     $rbody = curl_exec($curl);

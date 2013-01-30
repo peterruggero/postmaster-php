@@ -8,11 +8,22 @@ class ShipmentTestCase extends PostmasterBaseTestCase
         "to" => array(
             "company" => "ASLS",
             "contact" => "Joe Smith",
-            "street" => array("1110 Algarita Ave."),
+            "line1" => "1110 Algarita Ave",
             "city" => "Austin",
             "state" => "TX",
-            "zip_code" => "78704",
+            "zip_code" => "78704-4429",
             "phone_no" => "919-720-7941",
+            "country" => "US",
+        ),
+        "from_" => array(
+            "company" => "ASLS",
+            "contact" => "Joe Smith",
+            "line1" => "1110 Algarita Ave",
+            "city" => "Austin",
+            "state" => "TX",
+            "zip_code" => "78704-4429",
+            "phone_no" => "919-720-7941",
+            "country" => "US",
         ),
         "carrier" => "ups",
         "service" => "2DAY",
@@ -58,9 +69,14 @@ class ShipmentTestCase extends PostmasterBaseTestCase
         $this->assertTrue($shipment2 instanceof Postmaster_Shipment);
         $shipment1Array = $shipment1->__toArray();
         $shipment2Array = $shipment2->__toArray();
-        $this->assertEquals($shipment1, $shipment2);
+        // label_urls can be different, so ignore it during check
+        unset($shipment1Array['package']['label_url']);
+        unset($shipment2Array['package']['label_url']);
+        unset($shipment1Array['packages'][0]['label_url']);
+        unset($shipment2Array['packages'][0]['label_url']);
+        $this->assertEquals($shipment1Array, $shipment2Array);
     }
-
+    
     function testCreateTrack()
     {
         $shipment = Postmaster_Shipment::create(self::$sample_shipment);

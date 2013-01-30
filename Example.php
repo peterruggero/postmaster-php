@@ -7,7 +7,7 @@ Postmaster::setApiKey("example-api-key");
 $result = Postmaster_AddressValidation::validate(array(
   "company" => "ASLS",
   "contact" => "Joe Smith",
-  "street" => array("1110 Someplace Ave."),
+  "line1" => "1110 Someplace Ave.",
   "city" => "Austin",
   "state" => "TX",
   "zip_code" => "78704",
@@ -19,7 +19,7 @@ $result = Postmaster_Shipment::create(array(
   "to" => array(
     "company" => "ASLS",
     "contact" => "Joe Smith",
-    "street" => array("1110 Someplace Ave."),
+    "line1" => "1110 Someplace Ave.",
     "city" => "Austin",
     "state" => "TX",
     "zip_code" => "78704",
