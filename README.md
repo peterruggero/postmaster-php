@@ -29,7 +29,7 @@ Add this to your `composer.json`:
 
     {
         "require": {
-            "balanced/balanced": "*"
+            "postmaster/postmaster-php": "*"
         }
     }
     
