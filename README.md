@@ -14,7 +14,7 @@ https://www.postmaster.io/
     
 ## Issues
 
-Please use appropriately tagged github [issues](https://github.com/postmaster/postmaster-php/issues) to request features or report bugs.
+Please use appropriately tagged github [issues](https://github.com/postmaster/postmaster-api/issues) to request features or report bugs.
 
 ## Installation
 
