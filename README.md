@@ -3,6 +3,7 @@
 Developer Friendly Shipping
 
 Postmaster takes the pain out of sending shipments via UPS, Fedex, and USPS.
+
 Save money before you ship, while you ship, and after you ship.
 
 https://www.postmaster.io/
@@ -13,7 +14,7 @@ https://www.postmaster.io/
     
 ## Issues
 
-Please use appropriately tagged github [issues](https://github.com/postmaster/postmaster-php/issues) to request features or report bugs.
+Please use appropriately tagged github [issues](https://github.com/postmaster/postmaster-api/issues) to request features or report bugs.
 
 ## Installation
 
@@ -29,7 +30,7 @@ Add this to your `composer.json`:
 
     {
         "require": {
-            "balanced/balanced": "*"
+            "postmaster/postmaster-php": "*"
         }
     }
     
@@ -74,7 +75,9 @@ And then `require` all bootstrap files:
  
 ## Usage
 
-See https://postmaster.io/docs/php for tutorials and documentation.
+See https://www.postmaster.io/docs for tutorials and documentation.
+
+Some examples also in [Example.php](Example.php) file.
 
 ## Testing
     
