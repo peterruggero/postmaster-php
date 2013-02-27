@@ -7,14 +7,14 @@
     "address validation",
     "api"
   ],
-  "version": "1.0.0",
-  "homepage": "https://postmaster.io/",
+  "version": "1.0.1",
+  "homepage": "https://www.postmaster.io/",
   "license": "MIT",
   "authors": [
     {
       "name": "Postmaster",
       "email": "support@postmaster.io",
-      "homepage": "https://postmaster.io"
+      "homepage": "https://www.postmaster.io"
     }
   ],
   "require": {
