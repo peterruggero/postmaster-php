@@ -31,18 +31,21 @@ class AddressTestCase extends PostmasterBaseTestCase
  
     function testValidateInsufficientData()
     {
-        $result = Postmaster_AddressValidation::validate(array(
-            "company" => "ASLS",
-            "contact" => "Joe Smith",
-            "line1" => "007 Nowhere Ave",
-            "city" => "Austin",
-            "state" => "TX",
-            "zip_code" => "00001",
-            "country" => "US",
-        ));
-        $this->assertTrue($result instanceof Postmaster_AddressValidation);
-        $resultArray = $result->__toArray();
-        $this->assertArrayHasKey('status', $resultArray);
-        $this->assertEquals('WRONG_ADDRESS', $result->status);
+        try {
+            $result = Postmaster_AddressValidation::validate(array(
+                "company" => "ASLS",
+                "contact" => "Joe Smith",
+                "line1" => "007 Nowhere Ave",
+                "city" => "Austin",
+                "state" => "TX",
+                "zip_code" => "00001",
+                "country" => "US",
+            ));
+        }
+        catch (InvalidData_Error $expected) {
+            $msg = $expected->getMessage();
+            $this->assertEquals('Wrong address', $msg);
+            return;
+        }
     }
 }
