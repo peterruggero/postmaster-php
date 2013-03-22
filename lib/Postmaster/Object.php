@@ -12,7 +12,7 @@ class Postmaster_Object implements ArrayAccess
   // which keys should be converted to Postmaster_Objects
   protected static $obj_keys = array(
       'Postmaster_Shipment.to' => 'Postmaster_Address',
-      'Postmaster_Shipment.from_' => 'Postmaster_Address',
+      'Postmaster_Shipment.from' => 'Postmaster_Address',
       'Postmaster_Shipment.package' => 'Postmaster_Package',
       'Postmaster_Tracking.last_update' => 'DateTime',
       'Postmaster_TrackingHistory.timestamp' => 'DateTime'

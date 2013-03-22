@@ -15,6 +15,7 @@ class Postmaster_AddressValidation extends Postmaster_ApiResource
   {
     $class = get_class();
     Postmaster_ApiResource::_validateParams($params);
+    Postmaster_Util::normalizeAddress($params);
     $requestor = new Postmaster_ApiRequestor();
     $response = $requestor->request('post', self::$urlBase, $params);
     return Postmaster_Object::scopedConstructObject($class, $response);
