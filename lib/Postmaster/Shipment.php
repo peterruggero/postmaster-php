@@ -25,6 +25,8 @@ class Postmaster_Shipment extends Postmaster_ApiResource
   public static function create($params=null)
   {
     $class = get_class();
+    Postmaster_Util::normalizeAddress($params['to']);
+    Postmaster_Util::normalizeAddress($params['from_']);
     Postmaster_ApiResource::_validateParams($params);
     $requestor = new Postmaster_ApiRequestor();
     $response = $requestor->request('post', self::$urlBase, $params);
