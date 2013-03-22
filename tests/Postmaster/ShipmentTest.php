@@ -18,7 +18,7 @@ class ShipmentTestCase extends PostmasterBaseTestCase
         "from_" => array(
             "company" => "ASLS",
             "contact" => "Joe Smith",
-            "line1" => "1110 Algarita Ave",
+            "address" => ["1110 Algarita Ave"],
             "city" => "Austin",
             "state" => "TX",
             "zip_code" => "78704-4429",
@@ -47,11 +47,11 @@ class ShipmentTestCase extends PostmasterBaseTestCase
         
         $this->assertTrue($result->package instanceof Postmaster_Package);
         $packageArray = $result->package->__toArray();
-        $this->assertArrayHasKey('type_', $packageArray);
-        $this->assertEquals('CUSTOM', $result->package->type_);
+        $this->assertArrayHasKey('type', $packageArray);
+        $this->assertEquals('CUSTOM', $result->package->type);
         
         $this->assertTrue($result->to instanceof Postmaster_Address);
-        $this->assertTrue($result->from_ instanceof Postmaster_Address);
+        $this->assertTrue($result->from instanceof Postmaster_Address);
     }
 
     function testInvalidRefreshe()

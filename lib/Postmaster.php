@@ -14,6 +14,7 @@ require(dirname(__FILE__) . '/Postmaster/Error.php');
 require(dirname(__FILE__) . '/Postmaster/Object.php');
 require(dirname(__FILE__) . '/Postmaster/ApiRequestor.php');
 require(dirname(__FILE__) . '/Postmaster/ApiResource.php');
+require(dirname(__FILE__) . '/Postmaster/Util.php');
 
 // Postmaster API Resources
 require(dirname(__FILE__) . '/Postmaster/Address.php');
