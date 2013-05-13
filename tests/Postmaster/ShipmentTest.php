@@ -43,12 +43,14 @@ class ShipmentTestCase extends PostmasterBaseTestCase
         $resultArray = $result->__toArray();
         $this->assertArrayHasKey('status', $resultArray);
         $this->assertEquals('Processing', $result->status);
-        $this->assertArrayHasKey('package', $resultArray);
+        $this->assertArrayHasKey('packages', $resultArray);
         
-        $this->assertTrue($result->package instanceof Postmaster_Package);
-        $packageArray = $result->package->__toArray();
+        $this->assertTrue(is_array($result->packages));
+        $this->assertNotEmpty($result->packages);
+        $this->assertTrue($result->packages[0] instanceof Postmaster_Package);
+        $packageArray = $result->packages[0]->__toArray();
         $this->assertArrayHasKey('type', $packageArray);
-        $this->assertEquals('CUSTOM', $result->package->type);
+        $this->assertEquals('CUSTOM', $result->packages[0]->type);
         
         $this->assertTrue($result->to instanceof Postmaster_Address);
         $this->assertTrue($result->from instanceof Postmaster_Address);
@@ -70,8 +72,6 @@ class ShipmentTestCase extends PostmasterBaseTestCase
         $shipment1Array = $shipment1->__toArray();
         $shipment2Array = $shipment2->__toArray();
         // label_urls can be different, so ignore it during check
-        unset($shipment1Array['package']['label_url']);
-        unset($shipment2Array['package']['label_url']);
         unset($shipment1Array['packages'][0]['label_url']);
         unset($shipment2Array['packages'][0]['label_url']);
         $this->assertEquals($shipment1Array, $shipment2Array);

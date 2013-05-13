@@ -5,25 +5,34 @@ Postmaster::setApiKey("example-api-key");
 
 
 $result = Postmaster_AddressValidation::validate(array(
-  "company" => "ASLS",
+  "company" => "Postmaster Inc.",
   "contact" => "Joe Smith",
-  "line1" => "1110 Someplace Ave.",
+  "line1" => "701 Brazos St. Suite 1616",
   "city" => "Austin",
   "state" => "TX",
-  "zip_code" => "78704",
+  "zip_code" => "78701",
   "country" => "US",
 ));
-//var_dump($result);
+var_dump($result);
 
 $result = Postmaster_Shipment::create(array(
   "to" => array(
-    "company" => "ASLS",
+    "company" => "Postmaster Inc.",
     "contact" => "Joe Smith",
-    "line1" => "1110 Someplace Ave.",
+    "line1" => "701 Brazos St. Suite 1616",
     "city" => "Austin",
     "state" => "TX",
-    "zip_code" => "78704",
-    "phone_no" => "919-720-7941",
+    "zip_code" => "78701",
+    "phone_no" => "512-693-4040",
+  ),
+  "from" => array(
+    "company" => "Postmaster Inc.",
+    "contact" => "Joe Smith",
+    "line1" => "701 Brazos St. Suite 1616",
+    "city" => "Austin",
+    "state" => "TX",
+    "zip_code" => "78701",
+    "phone_no" => "512-693-4040",
   ),
   "carrier" => "ups",
   "service" => "2DAY",
@@ -36,10 +45,11 @@ $result = Postmaster_Shipment::create(array(
 ));
 //var_dump($result);
 
-$sm = Postmaster_Shipment::retrieve(1);
+$shipment_id = $result->id;
+
+$sm = Postmaster_Shipment::retrieve($shipment_id);
 $result = $sm->track();
 //var_dump($result);
 
-$sm = Postmaster_Shipment::retrieve(1);
 $result = $sm->void();
 //var_dump($result);
