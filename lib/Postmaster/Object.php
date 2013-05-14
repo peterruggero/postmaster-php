@@ -15,7 +15,8 @@ class Postmaster_Object implements ArrayAccess
       'Postmaster_Shipment.from' => 'Postmaster_Address',
       'Postmaster_Shipment.package' => 'Postmaster_Package',
       'Postmaster_Tracking.last_update' => 'DateTime',
-      'Postmaster_TrackingHistory.timestamp' => 'DateTime'
+      'Postmaster_TrackingHistory.timestamp' => 'DateTime',
+      'Postmaster_TransitTime.delivery_timestamp' => 'DateTime'
     );
 
   // which keys should be converted to list of Postmaster_Objects

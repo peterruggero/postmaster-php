@@ -7,12 +7,12 @@ class AddressTestCase extends PostmasterBaseTestCase
     function testValidateNoChanges()
     {
         $result = Postmaster_AddressValidation::validate(array(
-            "company" => "Asls",
+            "company" => "Postmaster Inc.",
             "contact" => "Joe Smith",
-            "line1" => "1110 Algarita Ave",
+            "line1" => "701 Brazos St. Suite 1616",
             "city" => "Austin",
             "state" => "TX",
-            "zip_code" => "78704",
+            "zip_code" => "78701",
             "country" => "US",
         ));
         $this->assertTrue($result instanceof Postmaster_AddressValidation);
@@ -26,18 +26,18 @@ class AddressTestCase extends PostmasterBaseTestCase
         $this->assertTrue($address instanceof Postmaster_Address);
         $addressArray = $address->__toArray();
         $this->assertArrayHasKey('zip_code', $addressArray);
-        $this->assertEquals('78704', $address->zip_code);
+        $this->assertEquals('78701', $address->zip_code);
     }
  
      function testValidateAddressAsList()
     {
         $result = Postmaster_AddressValidation::validate(array(
-            "company" => "Asls",
+            "company" => "Postmaster Inc.",
             "contact" => "Joe Smith",
-            "address" => ["1110 Algarita Ave"],
+            "address" => ["701 Brazos St. Suite 1616"],
             "city" => "Austin",
             "state" => "TX",
-            "zip_code" => "78704",
+            "zip_code" => "78701",
             "country" => "US",
         ));
         $this->assertTrue($result instanceof Postmaster_AddressValidation);
@@ -51,7 +51,7 @@ class AddressTestCase extends PostmasterBaseTestCase
         $this->assertTrue($address instanceof Postmaster_Address);
         $addressArray = $address->__toArray();
         $this->assertArrayHasKey('zip_code', $addressArray);
-        $this->assertEquals('78704', $address->zip_code);
+        $this->assertEquals('78701', $address->zip_code);
     }
  
     function testValidateInsufficientData()

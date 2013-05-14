@@ -60,7 +60,7 @@ class ErrorTestCase extends PostmasterBaseTestCase
         try {
             $result = Postmaster_AddressValidation::validate(array());
         }
-        catch (InvalidData_Error $expected) {
+        catch (Permission_Error $expected) {
             $msg = $expected->getMessage();
             $this->assertStringStartsWith('Invalid authorization header', $msg);
             return;
