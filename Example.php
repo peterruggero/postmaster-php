@@ -1,31 +1,58 @@
 <?php
-
+/* at startup set API key */
 require_once('./lib/Postmaster.php');
 Postmaster::setApiKey("example-api-key");
 
-
+/* at first validate recipient address */
 $result = Postmaster_AddressValidation::validate(array(
-  "company" => "ASLS",
+  "company" => "Postmaster Inc.",
   "contact" => "Joe Smith",
-  "line1" => "1110 Someplace Ave.",
+  "line1" => "701 Brazos St. Suite 1616",
   "city" => "Austin",
   "state" => "TX",
-  "zip_code" => "78704",
+  "zip_code" => "78701",
   "country" => "US",
 ));
 //var_dump($result);
 
+/* if address is ok you can ask for time and rates for it */
+$result = Postmaster_TransitTimes::get(array(
+    "from_zip" => "78701",
+    "to_zip" => "78704",
+    "weight" => 1.5,
+    "carrier" => "fedex",
+));
+//var_dump($result);
+
+$result = Postmaster_Rates::get(array(
+    "from_zip" => "78701",
+    "to_zip" => "78704",
+    "weight" => 1.5,
+    "carrier" => "fedex",
+));
+//var_dump($result);
+
+/* when user will choose delivery type you create shipment */ 
 $result = Postmaster_Shipment::create(array(
   "to" => array(
-    "company" => "ASLS",
+    "company" => "Postmaster Inc.",
     "contact" => "Joe Smith",
-    "line1" => "1110 Someplace Ave.",
+    "line1" => "701 Brazos St. Suite 1616",
     "city" => "Austin",
     "state" => "TX",
-    "zip_code" => "78704",
-    "phone_no" => "919-720-7941",
+    "zip_code" => "78701",
+    "phone_no" => "512-693-4040",
   ),
-  "carrier" => "ups",
+  "from" => array(
+    "company" => "Postmaster Inc.",
+    "contact" => "Joe Smith",
+    "line1" => "701 Brazos St. Suite 1616",
+    "city" => "Austin",
+    "state" => "TX",
+    "zip_code" => "78701",
+    "phone_no" => "512-693-4040",
+  ),
+  "carrier" => "fedex",
   "service" => "2DAY",
   "package" => array(
     "weight" => 1.5,
@@ -36,10 +63,17 @@ $result = Postmaster_Shipment::create(array(
 ));
 //var_dump($result);
 
-$sm = Postmaster_Shipment::retrieve(1);
+/* store in your DB shipment ID for later use */
+$shipment_id = $result->id;
+
+/* anytime you can extract shipment data */
+$sm = Postmaster_Shipment::retrieve($shipment_id);
+//var_dump($sm);
+
+/* or check delivery status */ 
 $result = $sm->track();
 //var_dump($result);
 
-$sm = Postmaster_Shipment::retrieve(1);
+/* you can cancel shipment, but only before being picked up by the carrier */
 $result = $sm->void();
 //var_dump($result);

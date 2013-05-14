@@ -21,3 +21,5 @@ require(dirname(__FILE__) . '/Postmaster/Address.php');
 require(dirname(__FILE__) . '/Postmaster/Package.php');
 require(dirname(__FILE__) . '/Postmaster/Shipment.php');
 require(dirname(__FILE__) . '/Postmaster/Tracking.php');
+require(dirname(__FILE__) . '/Postmaster/TransitTimes.php');
+require(dirname(__FILE__) . '/Postmaster/Rates.php');
