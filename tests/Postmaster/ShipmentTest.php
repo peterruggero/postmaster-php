@@ -6,13 +6,13 @@ class ShipmentTestCase extends PostmasterBaseTestCase
 {
     private static $sample_shipment = array(
         "to" => array(
-            "company" => "ASLS",
+            "company" => "Postmaster Inc.",
             "contact" => "Joe Smith",
-            "line1" => "1110 Algarita Ave",
+            "line1" => "701 Brazos St. Suite 1616",
             "city" => "Austin",
             "state" => "TX",
-            "zip_code" => "78704-4429",
-            "phone_no" => "919-720-7941",
+            "zip_code" => "78701",
+            "phone_no" => "512-693-4040",
             "country" => "US",
         ),
         "from_" => array(
@@ -21,11 +21,11 @@ class ShipmentTestCase extends PostmasterBaseTestCase
             "address" => ["1110 Algarita Ave"],
             "city" => "Austin",
             "state" => "TX",
-            "zip_code" => "78704-4429",
+            "zip_code" => "78701-4429",
             "phone_no" => "919-720-7941",
             "country" => "US",
         ),
-        "carrier" => "ups",
+        "carrier" => "fedex",
         "service" => "2DAY",
         "package" => array(
             "weight" => 1.5,
