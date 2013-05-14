@@ -22,7 +22,15 @@ $result = Postmaster_TransitTimes::get(array(
     "weight" => 1.5,
     "carrier" => "fedex",
 ));
-//var_dump($result[0]);
+//var_dump($result);
+
+$result = Postmaster_Rates::get(array(
+    "from_zip" => "78701",
+    "to_zip" => "78704",
+    "weight" => 1.5,
+    "carrier" => "fedex",
+));
+//var_dump($result);
 
 /* when user will choose delivery type you create shipment */ 
 $result = Postmaster_Shipment::create(array(
