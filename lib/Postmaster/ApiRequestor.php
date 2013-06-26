@@ -19,7 +19,7 @@ class Postmaster_ApiRequestor
       return $value;
   }
 
-  public function request($meth, $url, $params=null)
+  public function request($meth, $url, $params=null, $headers=null)
   {
     $absUrl = self::apiUrl($url);
     $apiKey = Postmaster::getApiKey();
@@ -34,12 +34,14 @@ class Postmaster_ApiRequestor
       'publisher' => 'stripe',
       'uname' => php_uname()
     );
-    $headers = array(
+    $allHeaders = array(
         'X-Postmaster-Client-User-Agent: ' . json_encode($ua),
         'User-Agent: Postmaster/v1 PhpBindings/' . Postmaster::VERSION
     );
+    if ($headers)
+        $allHeaders = array_merge($allHeaders, $headers);
 
-    list($rbody, $rcode) = $this->_curlRequest($meth, $absUrl, $headers, $params, $apiKey);
+    list($rbody, $rcode) = $this->_curlRequest($meth, $absUrl, $allHeaders, $params, $apiKey);
 
     if ($rbody == 'OK') {
       $resp = $rbody;
@@ -75,13 +77,20 @@ class Postmaster_ApiRequestor
     $opts = array();
     if ($meth == 'get') {
       $opts[CURLOPT_HTTPGET] = 1;
-      if (count($params) > 0) {
+      if (!is_string($params) && count($params) > 0) {
         $encoded = http_build_query($params);
         $absUrl = "$absUrl?$encoded";
+      } elseif (is_string($params) && strlen($params) > 0) {
+        $absUrl = "$absUrl?$params";
       }
     } else if ($meth == 'post') {
       $opts[CURLOPT_POST] = 1;
-      $opts[CURLOPT_POSTFIELDS] = http_build_query($params);
+      if (!is_string($params)) {
+        $opts[CURLOPT_POSTFIELDS] = http_build_query($params);
+      } else {
+        $opts[CURLOPT_POSTFIELDS] = $params;
+      }
+
     } else {
       throw new Postmaster_Error("Unrecognized method $meth");
     }

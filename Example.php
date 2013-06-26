@@ -77,3 +77,30 @@ $result = $sm->track();
 /* you can cancel shipment, but only before being picked up by the carrier */
 $result = $sm->void();
 //var_dump($result);
+
+/* create box example */
+$result = Postmaster_Package::create(array(
+    "width" => 10,
+    "height" => 12,
+    "length" => 8,
+    "name" => 'My Box'
+));
+var_dump($result);
+
+/* list boxes example */
+$result = Postmaster_Package::all(array(
+    "limit" => 2
+));
+var_dump($result);
+
+/* fit items in box example */
+$result = Postmaster_Package::fit(array(
+    "items" => [
+        array("width" => 2.2, "length" => 3, "height" => 1, "count" => 2),
+    ],
+    "packages" => [
+        array("width" => 6, "length" => 6, "height" => 6, "sku" => "123ABC"),
+        array("width" => 12, "length" => 12, "height" => 12, "sku" => "456XYZ"),
+    ],
+));
+var_dump($result);
