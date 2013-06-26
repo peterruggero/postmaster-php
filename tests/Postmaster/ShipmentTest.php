@@ -79,7 +79,7 @@ class ShipmentTestCase extends PostmasterBaseTestCase
     
     function testCreateTrack()
     {
-        $shipment = Postmaster_Shipment::create(self::$sample_shipment);
+        $shipment = Postmaster_Shipment::retrieve('2010');
         $result = $shipment->track();
         
         $this->assertTrue(is_array($result));
