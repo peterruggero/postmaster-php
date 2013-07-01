@@ -95,12 +95,12 @@ var_dump($result);
 
 /* fit items in box example */
 $result = Postmaster_Package::fit(array(
-    "items" => [
+    "items" => array(
         array("width" => 2.2, "length" => 3, "height" => 1, "count" => 2),
-    ],
-    "packages" => [
+    ),
+    "packages" => array(
         array("width" => 6, "length" => 6, "height" => 6, "sku" => "123ABC"),
         array("width" => 12, "length" => 12, "height" => 12, "sku" => "456XYZ"),
-    ],
+    ),
 ));
 var_dump($result);

@@ -4,7 +4,7 @@ abstract class Postmaster
 {
   public static $apiKey;
   public static $apiBase = 'https://api.postmaster.io';
-  const VERSION = '1.2.0';
+  const VERSION = '1.2.1';
 
   public static function getApiKey()
   {
