@@ -78,6 +78,14 @@ $result = $sm->track();
 $result = $sm->void();
 //var_dump($result);
 
+/* list all shipments */
+$result = Postmaster_Shipment::all();
+//var_dump($result);
+
+/* list 3 newest shipments */
+$result = Postmaster_Shipment::all(array("limit" => 3));
+//var_dump($result);
+
 /* create box example */
 $result = Postmaster_Package::create(array(
     "width" => 10,
