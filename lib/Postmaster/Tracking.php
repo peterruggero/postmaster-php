@@ -19,7 +19,7 @@ class Postmaster_Tracking extends Postmaster_ApiResource
    * This allows you to monitor the status of packages that you created outside
    * of Postmaster.
    */
-  public static function track_external($params)
+  public static function monitor_external($params)
   {
     Postmaster_ApiResource::_validateParams($params);
     $requestor = new Postmaster_ApiRequestor();
