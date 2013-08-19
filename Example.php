@@ -86,6 +86,13 @@ $result = Postmaster_Shipment::all();
 $result = Postmaster_Shipment::all(array("limit" => 3));
 //var_dump($result);
 
+/* monitor external package */
+$result = Postmaster_Tracking::monitor_external(array(
+    "tracking_no" => "1ZW470V80310800043",
+    "url" => "http://example.com/your-http-post-listener"
+));
+//var_dump($result);
+
 /* create box example */
 $result = Postmaster_Package::create(array(
     "width" => 10,

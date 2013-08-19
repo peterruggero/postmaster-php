@@ -19,7 +19,7 @@ class TrackingTestCase extends PostmasterBaseTestCase
 
     function testTrackExternal()
     {
-        $result = Postmaster_Tracking::track_external(array(
+        $result = Postmaster_Tracking::monitor_external(array(
             "tracking_no" => "1ZW470V80310800043",
             "url" => "http://example.com/your-http-post-listener"
         ));
