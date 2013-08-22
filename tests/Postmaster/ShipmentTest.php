@@ -101,4 +101,22 @@ class ShipmentTestCase extends PostmasterBaseTestCase
         $this->assertTrue(is_bool($result));
         $this->assertEquals(true, $result);
     }
+
+    function testAll()
+    {
+        $result = Postmaster_Shipment::all();
+
+        $this->assertTrue(is_array($result));
+        $this->assertNotEmpty($result);
+        $this->assertTrue($result[0] instanceof Postmaster_Shipment);
+    }
+
+    function testAllWithLimit()
+    {
+        $result = Postmaster_Shipment::all(array("limit" => 3));
+
+        $this->assertTrue(is_array($result));
+        $this->assertEquals(3, count($result));
+        $this->assertTrue($result[0] instanceof Postmaster_Shipment);
+    }
 }
