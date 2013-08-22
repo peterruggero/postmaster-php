@@ -33,6 +33,20 @@ class Postmaster_Shipment extends Postmaster_ApiResource
     return Postmaster_Object::scopedConstructObject($class, $response);
   }
 
+  public static function all($params=null)
+  {
+    $class = get_class();
+    Postmaster_ApiResource::_validateParams($params);
+    $requestor = new Postmaster_ApiRequestor();
+    $response = $requestor->request('get', self::$urlBase, $params);
+
+    $results = array();
+    foreach($response['results'] as $data)
+      array_push($results, Postmaster_Object::scopedConstructObject($class, $data));
+
+    return $results;
+  }
+
   public function refresh()
   {
     $requestor = new Postmaster_ApiRequestor();
@@ -73,11 +87,11 @@ class Postmaster_Shipment extends Postmaster_ApiResource
     $url = $this->instanceUrl(self::$urlBase, 'track');
     $response = $requestor->request('get', $url);
 
+    $class = 'Postmaster_Tracking';
     $results = array();
-    foreach($response['results'] as $data) {
-      $class = 'Postmaster_Tracking';
+    foreach($response['results'] as $data)
       array_push($results, Postmaster_Object::scopedConstructObject($class, $data));
-    }
+
     return $results;
   }
 }

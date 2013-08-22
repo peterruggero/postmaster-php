@@ -14,6 +14,18 @@ class Postmaster_Tracking extends Postmaster_ApiResource
     $response = $requestor->request('get', self::$urlBase.'?tracking='.$tracking_id);
     return Postmaster_Object::scopedConstructObject($class, $response);
   }
+
+  /*
+   * This allows you to monitor the status of packages that you created outside
+   * of Postmaster.
+   */
+  public static function monitor_external($params)
+  {
+    Postmaster_ApiResource::_validateParams($params);
+    $requestor = new Postmaster_ApiRequestor();
+    $response = $requestor->request('post', self::$urlBase, $params);
+    return True;
+  }
 }
 
 

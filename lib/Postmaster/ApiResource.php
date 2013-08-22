@@ -11,6 +11,8 @@ abstract class Postmaster_ApiResource extends Postmaster_Object
   public function instanceUrl($base, $action=null)
   {
     $id = $this['id'];
+    if(is_float($id))
+        $id = sprintf("%.0f", $id);
     $class = get_class($this);
     if (!$id) {
       throw new Postmaster_Error("Could not determine which URL to request: $class instance has invalid ID: $id", null);
