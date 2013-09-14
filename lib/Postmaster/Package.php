@@ -32,7 +32,7 @@ class Postmaster_Package extends Postmaster_ApiResource
   {
     $requestor = new Postmaster_ApiRequestor();
     $params = json_encode($params);
-    $headers = ['Content-Type: application/json'];
+    $headers = array("Content-Type: application/json'");
     $response = $requestor->request('post', self::$urlBase.'/fit', $params, $headers);
     return $response;
   }
