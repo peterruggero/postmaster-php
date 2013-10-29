@@ -21,7 +21,8 @@ class TrackingTestCase extends PostmasterBaseTestCase
     {
         $result = Postmaster_Tracking::monitor_external(array(
             "tracking_no" => "1ZW470V80310800043",
-            "url" => "http://example.com/your-http-post-listener"
+            "url" => "http://example.com/your-http-post-listener",
+            "events" => ["Delivered", "Exception"]
         ));
 
         $this->assertTrue(is_bool($result));

@@ -89,7 +89,8 @@ $result = Postmaster_Shipment::all(array("limit" => 3));
 /* monitor external package */
 $result = Postmaster_Tracking::monitor_external(array(
     "tracking_no" => "1ZW470V80310800043",
-    "url" => "http://example.com/your-http-post-listener"
+    "url" => "http://example.com/your-http-post-listener",
+    "events" => ["Delivered", "Exception"]
 ));
 //var_dump($result);
 
