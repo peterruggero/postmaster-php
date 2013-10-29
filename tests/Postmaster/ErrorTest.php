@@ -10,7 +10,7 @@ class ErrorTestCase extends PostmasterBaseTestCase
             $result = Postmaster_AddressValidation::validate(array());
         }
         catch (Postmaster_Error $expected) {
-            $this->assertEquals(500, $expected->getHttpStatus());
+            $this->assertEquals(400, $expected->getHttpStatus());
             
             $json_body = $expected->getJsonBody();
             $this->assertArrayHasKey("message", $json_body);
