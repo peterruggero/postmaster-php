@@ -24,7 +24,7 @@ class Postmaster_Tracking extends Postmaster_ApiResource
     Postmaster_ApiResource::_validateParams($params);
     $requestor = new Postmaster_ApiRequestor();
     $response = $requestor->request('post', self::$urlBase, $params);
-    return True;
+    return $response;
   }
 }
 
