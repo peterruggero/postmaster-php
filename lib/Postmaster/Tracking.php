@@ -26,8 +26,26 @@ class Postmaster_Tracking extends Postmaster_ApiResource
     $response = $requestor->request('post', self::$urlBase, $params);
     return $response;
   }
+
+  /**
+   * Converts JSON response to Postmaster_Object/ExternalPackage. 
+   * This is a helper function for converting the initially returned 
+   * hook response if anything exists. All other responses should be 
+   * handled by the user's URL.
+   * @param  String $response JSON string.
+   * @return Postmaster_Object           Postmaster_Object result.
+   */
+  public static function toPostmaster_ExternalPackage($response)
+  {
+    $class = 'Postmaster_ExternalPackage';
+    return Postmaster_Object::scopedConstructObject($class, $response);
+  }
 }
 
+
+class Postmaster_ExternalPackage extends Postmaster_ApiResource
+{
+}
 
 class Postmaster_TrackingHistory extends Postmaster_ApiResource
 {
